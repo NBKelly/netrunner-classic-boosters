@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NETRUNNER BOOSTER RESULTS</title>
+    <script src="classic-booster.js"></script>
+    <script src="proteus-booster.js"></script>
+    <script src="base-set.js"></script>
+    <script src="card-info.js"></script>
+    <script src="result.js"></script>
+    <link rel="stylesheet" href="cobrastyle.css">
+    <link rel="stylesheet" href="result.css">
+  </head>
+  <body onload="assembleCards()">
+    <div class="w3-bar w3-black">
+      <button class="button" onclick="displayCorp()">Corp</button>
+      <button class="button" onclick="displayRunner()">Runner</button>
+    </div>
+
+    <div id="Corp" class="mycontainer">
+      <h2>Corp Cards</h2>
+      <div class="row">
+	<div class="col_mid block">
+	  <h3>Agenda Pool</h3>
+	  <ul id="corp-pool-agenda" class="cardList corp-pool agenda"> </ul>
+	  <h3>Ice Pool</h3>
+	  <ul id="corp-pool-ice" class="cardList corp-pool ice"> </ul>
+	  <h3>Operation Pool</h3>
+	  <ul id="corp-pool-operation" class="cardList corp-pool operation"> </ul>
+	  <h3>Asset Pool</h3>
+	  <ul id="corp-pool-asset" class="cardList corp-pool asset"> </ul>
+	  <h3>Upgrade Pool</h3>
+	  <ul id="corp-pool-upgrade" class="cardList corp-pool upgrade"> </ul>
+	</div>
+
+	<div class="col_right block">
+	  <div>
+	    <h3>Corp Deck</h3>
+	    <h4 id="ccc">0 Cards (min 45)</h4>
+	    <h4 id="capc">0 / 18-19 Agenda Points</h4>
+	  </div>
+	  <ul id="corp-deck-agenda" class="cardList corp-deck agenda"> </ul>
+	  <h3>Ice</h3>
+	  <ul id="corp-deck-ice" class="cardList corp-deck ice"> </ul>
+	  <h3>Operations</h3>
+	  <ul id="corp-deck-operation" class="cardList corp-deck operation"> </ul>
+	  <h3>Assets AKA Nodes</h3>
+	  <ul id="corp-deck-asset" class="cardList corp-deck asset"> </ul>
+	  <h3>Upgrades</h3>
+	  <ul id="corp-deck-upgrade" class="cardList corp-deck upgrade"> </ul>
+	</div>
+
+	<div class="col_left block">
+	  <div>
+	    <h3>Teki Format</h3>
+	  </div>
+
+	  <div id='corp-teki-list'>
+
+	  </div>
+	</div>
+    </div>
+
+    <div id="Runner" class="mycontainer">
+      <h2>Runner Cards</h2>
+    </div>
+  </body>
+</html>

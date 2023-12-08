@@ -26,7 +26,7 @@ var common = [
     "Walking Wall",
     "Washed-Up Solo Construct",
     "Doppelganger Antibody",
-    "Government Contract",
+//    "Government Contract", - excluded
     "Syd Meyer Superstores",
     "Credit Consolidation",
     "Data Sifters",
@@ -104,7 +104,7 @@ var uncommon = [
     "Eurocorpse(tm) Spin Chip",
     "Credit Subversion",
     "Get Ready to Rumble",
-    "Mercenary Subcontract",
+//    "Mercenary Subcontract", - excluded
     "Precision Bribery",
     "Demolition Run",
     "Disgruntled Ice Technician",
@@ -130,7 +130,7 @@ var rare = [
     "LDL Traffic Analyzers",
     "Stereogram Antibody",
     "Lesley Major",
-    "Lisa Blyte",
+    "Lisa Blight",
     "Marcel DeSoleil",
     "Networked Center",
     "Obfuscated Fortress",
@@ -139,7 +139,7 @@ var rare = [
     "Weapons Depot",
     "Armageddon",
     "Scaldan",
-    "Viral Pipeline",
+//    "Viral Pipeline", - excluded
     "Lucidrine(tm) Drip Feed",
     "The Deck",
     "Airport Locker",

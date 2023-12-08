@@ -1,0 +1,112 @@
+.row {
+    /*width: 100%;*/
+    /*text-align: center; // center the content of the container*/
+    display: flex;
+    flex-direction: row;
+}
+
+.block {
+    /*width: 100px;*/
+
+}
+
+.corp-pool {list-style-type: none; margin: 0; padding: 0; width: 60%; }
+.corp-pool li { margin: 0 1px 1px 1px; padding: 0.4em;
+		padding-left: 1.5em; font-size: 0.8em; height: 14px; }
+.corp-pool li span { position: absolute; margin-left: -1.3em;}
+
+.corp-deck {list-style-type: none; margin: 0; padding: 0; width: 60%; }
+.corp-deck li { margin: 0 1px 1px 1px; padding: 0.4em;
+		padding-left: 1.5em; font-size: 0.8em; height: 14px; }
+.corp-deck li span { position: absolute; margin-left: -1.3em; }
+
+.cardDiv {
+    background-color: rgba(125,125,125,0.45);
+    color: white;
+    font-weight: bold;
+    width: 255px;
+    height: 20px;
+    box-shadow: 0 0 5px 10px rgba(125,125,125,0.3);
+    font-size: 10px;
+}
+
+.numberSpan {
+    font-weight: bold;
+    color: white;
+    float: right;
+}
+
+.titleSpan {
+    font-weight: bold;
+    color: white;
+    float: left;
+}
+
+/* intentionally left blank */
+.cardLi {width: 250px}
+.recieverList {}
+.metaReciever {}
+
+.cardList {
+    min-height: 5px;
+}
+
+.col_left {
+    float: left;
+    background-color: rgba(125,125,125,0.9);
+    color: white;
+    width: 282px;
+    text-align: center;
+    font-weight: bold;
+    padding: 3px;
+    margin-left:3px;
+    margin-right:3px;
+}
+
+.col_mid {
+    float: left;
+    background-color: rgba(125,55,125,0.9);
+    color: white;
+    width: 282px;
+    text-align: center;
+    font-weight: bold;
+    padding: 3px;
+    margin-left:3px;
+    margin-right:3px;
+}
+
+.col_right {
+    float: left;
+    background-color: rgba(125,125,55,0.9);
+    color: white;
+    width: 282px;
+    text-align: center;
+    font-weight: bold;
+    padding: 3px;
+    margin-left:3px;
+    margin-right:3px;
+}
+
+
+.overlay {
+    display:none;
+}
+
+.cardDiv:hover .overlay {
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    position:fixed;
+    top:0;
+    right:0;
+    display:inline-block;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+
+    /* All other styling - see example */
+
+    cardDiv {
+        vertical-align:top; /* Default is baseline, this fixes a common alignment issue */
+    }
+}

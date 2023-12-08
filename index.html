@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NETRUNNER BOOSTER GENERATOR</title>
+    <link rel="stylesheet" href="cobrastyle.css">
+    <script src="spaghetti.js"></script>
+  </head>
+  <body>
+    <h1>Configure Settings</h1>
+
+    <p>
+      <label for="playercount">Player Count</label>
+      <input type="number"
+	     name="playercount"
+	     size="5"
+	     id="playercount"
+	     min="2"
+	     max="64"
+	     value="4"></input>
+    </p>
+
+    <hr style="width:100%;text-align:left;margin-left:0>"/>
+
+    <table>
+      <tr>
+	<td><label for="startercount">Starters (Base set): </label></td>
+	<td><input type="number" name="startercount" size="5"
+		   id="startercount" min="0" max="9" value="1"></td>
+      </tr>
+      <tr>
+	<td><label for="starterboostercount">Booster Packs (Base set): </label></td>
+	<td><input type="number" name="starterboostercounter" size="5"
+		   id="starterboostercount" min="0" max="9" value="0"></td>
+      </tr>
+      <tr>
+	<td><label for="proteusboostercount">Booster Packs (Proteus): </label></td>
+	<td><input type="number" name="proteusboostercount" size="5"
+		   id="proteusboostercount" min="0" max="20" value="0"></td>
+      </tr>
+      <tr>
+	<td><label for="classicboostercount">Booster Packs (Classic): </label></td>
+	<td><input type="number" name="classicboostercount" size="5" id="classicboostercount"
+		   min="0" max="20" value="0"></td>
+      </tr>
+    </table>
+
+    <hr style="width:100%;text-align:left;margin-left:0">
+
+
+    <button class="button button2" id="generateBoosters"
+	    onclick="generateCards()">Generate Booster Packs</button>
+
+
+
+    <hr style="width:100%;text-align:left;margin-left:0">
+    <table id="resultsArea">
+
+    </table>
+  </body>
+</html>

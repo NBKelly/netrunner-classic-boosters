@@ -47,7 +47,7 @@ var corp_vital =
 	"Project Babylon",
 	"Security Net Optimization",
 	"Subsidiary Branch",
-	"Tycho Expansion"
+	"Tycho Extension"
     ]
 
 var runner_common =
@@ -158,17 +158,17 @@ var runner_uncommon =
 	"Dogcatcher",
 	"Dropp",
 	"Expert Schedule Analyzer",
-	"Fait Accompli",
+//	"Fait Accompli",
 	"Flak",
 	"Gremlins",
 	"Grubb",
-	"I Spy",
+//	"I Spy",
 	"Imp",
 	"Krash",
 	"Mouse",
 	"Newsgroup Filter",
 	"Pattel's Virus",
-	"Pox",
+//	"Pox",
 	"R&D Protocol File",
 	"Rabbit",
 	"Replicator",
@@ -296,7 +296,7 @@ var runner_rare =
 	"Arasaka Portable Prototype",
 	"Access Through Alpha",
 	"Aujourd'Oui",
-	"Code Viral Cache",
+//	"Code Viral Cache",
 	"Corporate Ally",
 	"Diplomatic Immunity",
 	"N.E.T.O.",
@@ -321,7 +321,7 @@ var runner_rare =
 	"Emergency Self-Construct",
 	"Evil Twin",
 	"False Echo",
-	"Incubator",
+//	"Incubator",
 	"Japanese Water Torture",
 	"Joan of Arc",
 	"Poltergeist",
@@ -377,7 +377,7 @@ var corp_rare =
 	"Endless Corridor",
 	"Fatal Attractor",
 	"Wall of Ice",
-	"Tutor",
+//	"Tutor",
 	"Vacuum Link",
 	"Laser Wire",
 	"Razor Wire",
@@ -390,7 +390,7 @@ var corp_rare =
 	"City Surveillance",
 	"Corporate Negotiating Center",
 	"Data Masons",
-	"Disinfectant, Inc.",
+//	"Disinfectant, Inc.",
 	"Encoder, Inc.",
 	"Fortress Architects",
 	"I Got a Rock",
@@ -454,7 +454,6 @@ function base_set_booster(seed) {
     // double seed this so the boosters and commons don't look alike
     let rand = (mulberry32(seed));
     rand = mulberry32(Math.floor(rand() *99999999));
-
 
     for (let i = 0; i < 2; i++)
 	booster.push(vital[Math.floor(rand() * vital.length)])
