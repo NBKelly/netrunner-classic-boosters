@@ -51,7 +51,7 @@ var common = [
     "HQ Mole",
     "Liberated Savings Account",
     "R&D Mole",
-    "Runner Sense",
+    "Runner Sensei",
     "Streetware Distributor",
     "Swiss Bank Account",
     "Wired Switchboard",

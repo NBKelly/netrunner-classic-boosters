@@ -2,6 +2,16 @@ var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.3.min.js'; // Check https://jquery.com/ for the current version
 document.getElementsByTagName('head')[0].appendChild(script);
 
+function displayCorp() {
+    document.getElementById("Corp").style.display = "block";
+    document.getElementById("Runner").style.display = "none";
+}
+
+function displayRunner() {
+    document.getElementById("Corp").style.display = "none";
+    document.getElementById("Runner").style.display = "block";
+}
+
 class Card {
     constructor(name, ap) {
 	this.name = name;
@@ -10,17 +20,30 @@ class Card {
     }
 }
 
-var zones = {"corp-pool-agenda": new Map(),
-	     "corp-pool-ice": new Map(),
-	     "corp-pool-operation": new Map(),
-	     "corp-pool-asset": new Map(),
-	     "corp-pool-upgrade": new Map(),
-	     // ----- corp deck
-	     "corp-deck-agenda": new Map(),
-	     "corp-deck-ice": new Map(),
-	     "corp-deck-operation": new Map(),
-	     "corp-deck-asset": new Map(),
-	     "corp-deck-upgrade": new Map()};
+var zones = {
+    // ----- corp pool
+    "corp-pool-agenda": new Map(),
+    "corp-pool-ice": new Map(),
+    "corp-pool-operation": new Map(),
+    "corp-pool-asset": new Map(),
+    "corp-pool-upgrade": new Map(),
+    // ----- corp deck
+    "corp-deck-agenda": new Map(),
+    "corp-deck-ice": new Map(),
+    "corp-deck-operation": new Map(),
+    "corp-deck-asset": new Map(),
+    "corp-deck-upgrade": new Map(),
+    // ----- runner pool
+    "runner-pool-program": new Map(),
+    "runner-pool-hardware": new Map(),
+    "runner-pool-event": new Map(),
+    "runner-pool-resource": new Map(),
+    // ----- runner deck
+    "runner-deck-program": new Map(),
+    "runner-deck-hardware": new Map(),
+    "runner-deck-event": new Map(),
+    "runner-deck-resource": new Map()
+};
 
 /**
  * replaces the name string of a zone between the deck and the pool
@@ -30,13 +53,6 @@ function invert_zone(zone) {
 	return zone.replace("pool", "deck");
     return zone.replace("deck", "pool");
 }
-
-/*let count = count_deck(corp_deck_agendas) + count_deck(corp_deck_rest);
-  let ap_lim = ap_limit(count);
-  let ap = count_ap(corp_deck_agendas);
-
-  document.getElementById("ccc").innerHTML = (count + " Cards (min 45)");
-  document.getElementById("capc").innerHTML = (ap + " / " + ap_lim + " Agenda Points");*/
 
 function move_fn(name, fromZone, toZone) {
     let from = zones[fromZone];
@@ -61,8 +77,11 @@ function move_fn(name, fromZone, toZone) {
 }
 
 
-/* the following cards need a special string:
+/* TODO !important the following cards need a special string:
    Pi in the face
+   R&D-Protocol Files
+   Bodyweight Synthetic Blood
+   Lucidrine Booster Drug
  */
 function populate_teki(zone) {
     if(zone.includes("corp")) {
@@ -70,6 +89,21 @@ function populate_teki(zone) {
 	element.innerHTML = "";
 	let t_zones = ['corp-deck-agenda', 'corp-deck-ice','corp-deck-asset',
 		       'corp-deck-upgrade','corp-deck-operation',];
+	for(let zone_name of t_zones) {
+	    for (let [key, value] of zones[zone_name]) {
+		let jnet_str = value + " ONR " + key.replaceAll("(r)", " [R]").replaceAll("(tm)", " [TM]");
+		let sp = document.createElement("span");
+		sp.innerHTML = jnet_str;
+		element.appendChild(sp);
+		element.appendChild(document.createElement("br"));
+	    }
+	}
+    }
+    else {
+	let element = document.getElementById('runner-teki-list');
+	element.innerHTML = "";
+	let t_zones = ['runner-deck-program', 'runner-deck-hardware',
+		       'runner-deck-event','runner-deck-resource',];
 	for(let zone_name of t_zones) {
 	    for (let [key, value] of zones[zone_name]) {
 		let jnet_str = value + " ONR " + key.replaceAll("(r)", " [R]").replaceAll("(tm)", " [TM]");
@@ -165,7 +199,7 @@ function render_zone(zone_name) {
     let to = invert_zone(zone_name);
 
     let canvas = document.getElementById(from);
-    console.log(canvas);
+    //console.log(canvas);
     canvas.innerHTML = "";
 
     /* sort the zone */
@@ -192,9 +226,18 @@ function render_zone(zone_name) {
 
 	document.getElementById("ccc").innerHTML = (count + " Cards (min 45)");
 	document.getElementById("capc").innerHTML = (ap + " / " + ap_lim + " Agenda Points");
-
-	populate_teki(zone_name);
     }
+    else {
+	let count = count_deck(zones['runner-deck-program'])
+	    + count_deck(zones['runner-deck-hardware'])
+	    + count_deck(zones['runner-deck-event'])
+	    + count_deck(zones['runner-deck-resource']);
+
+	document.getElementById("rcc").innerHTML = (count + " Cards (min 45)");
+    }
+
+    if(zone_name.includes("deck"))
+	populate_teki(zone_name);
 }
 
 function assembleCards() {
@@ -243,12 +286,14 @@ function assembleCards() {
     }
 
     /* map all our cards by frequency */
-    /*for (const card of generatedCards) {
+    for (const card of generatedCards) {
 	freqCards.set(card, freqCards.get(card) ? freqCards.get(card) + 1 : 1);
-	}*/
+    }
 
-    for (const card of corp_cards_array)
+    /*for (const card of runner_cards_array) {
+	console.log(card);
 	freqCards.set(card, 1);
+    }*/
 
     console.log(freqCards);
 
@@ -259,15 +304,18 @@ function assembleCards() {
 	if(is_corp_card(key)) {
 	    let target_zone = 'corp-pool-' + corp_card_type(key);
 	    zones[target_zone].set(key, value);
-
 	    corp_co = corp_co + "\n" + value + " ONR " + key.replaceAll("(r)", " [R]").replaceAll("(tm)", " [TM]");
 	}
-	else
+	else {
+	    console.log(key);
+	    let target_zone = 'runner-pool-' + runner_card_type(key);
+	    //console.log(target_zone);
+	    zones[target_zone].set(key, value);
 	    runner_co = runner_co + "\n" + value + " ONR " + key.replaceAll("(r)", " [R]").replaceAll("(tm)", " [TM]");
+	}
     }
 
     console.log(corp_co);
-
     console.log(runner_co);
 
     /* now we want to insert all of these into our pool */
@@ -278,4 +326,9 @@ function assembleCards() {
     render_zone('corp-pool-asset');
     render_zone('corp-pool-operation');
     render_zone('corp-pool-upgrade');
+
+    render_zone('runner-pool-program');
+    render_zone('runner-pool-hardware');
+    render_zone('runner-pool-resource');
+    render_zone('runner-pool-event');
 }

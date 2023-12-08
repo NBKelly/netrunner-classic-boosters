@@ -10,6 +10,10 @@
 
 }
 
+#Runner {
+    display: none;
+}
+
 .corp-pool {list-style-type: none; margin: 0; padding: 0; width: 60%; }
 .corp-pool li { margin: 0 1px 1px 1px; padding: 0.4em;
 		padding-left: 1.5em; font-size: 0.8em; height: 14px; }
@@ -19,6 +23,17 @@
 .corp-deck li { margin: 0 1px 1px 1px; padding: 0.4em;
 		padding-left: 1.5em; font-size: 0.8em; height: 14px; }
 .corp-deck li span { position: absolute; margin-left: -1.3em; }
+
+.runner-pool {list-style-type: none; margin: 0; padding: 0; width: 60%; }
+.runner-pool li { margin: 0 1px 1px 1px; padding: 0.4em;
+		padding-left: 1.5em; font-size: 0.8em; height: 14px; }
+.runner-pool li span { position: absolute; margin-left: -1.3em;}
+
+.runner-deck {list-style-type: none; margin: 0; padding: 0; width: 60%; }
+.runner-deck li { margin: 0 1px 1px 1px; padding: 0.4em;
+		padding-left: 1.5em; font-size: 0.8em; height: 14px; }
+.runner-deck li span { position: absolute; margin-left: -1.3em; }
+
 
 .cardDiv {
     background-color: rgba(125,125,125,0.45);
