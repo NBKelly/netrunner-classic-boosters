@@ -4,8 +4,9 @@
     <title>NETRUNNER BOOSTER GENERATOR</title>
     <link rel="stylesheet" href="cobrastyle.css">
     <script src="spaghetti.js"></script>
+    <script src="card-info.js"></script>
   </head>
-  <body>
+  <body onload="populateCards()">
     <h1>Configure Settings</h1>
 
     <p>
@@ -20,6 +21,8 @@
     </p>
 
     <hr style="width:100%;text-align:left;margin-left:0>"/>
+
+    <h4>Each player will get:</h4>
 
     <table>
       <tr>
@@ -42,6 +45,18 @@
 	<td><input type="number" name="classicboostercount" size="5" id="classicboostercount"
 		   min="0" max="20" value="0"></td>
       </tr>
+      <tr>
+	<td><label for="extracards">Each player also gets:</label></td>
+	<td><select name="extracards" id="select-cards-id">
+	    <!--<option value="Score!">Score!</option>-->
+	</select></td>
+	<td><button name="extra-cards-button" onclick="addcard()">+</button></td>
+      </tr>
+    </table>
+
+    <h4>Each player will also get:</h4>
+    <table id="extra-cards-table">
+
     </table>
 
     <hr style="width:100%;text-align:left;margin-left:0">

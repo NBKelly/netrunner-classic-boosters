@@ -1203,3 +1203,40 @@ function ap_limit(numcards) {
 var is_corp_card = function(name) {
     return corp_cards_array.includes(name);
 }
+
+/* these probably shouldn't be here
+   but what you finna do */
+function addcard() {
+    let selector = document.getElementById("select-cards-id");
+    let table = document.getElementById("extra-cards-table");
+    let tr = document.createElement("tr");
+    let td = document.createElement("td");
+    let tdspan = document.createElement("span");
+    let selected = selector.value;
+    let removebutton = document.createElement("button");
+    removebutton.innerHTML = "remove";
+    removebutton.addEventListener("click", function() {table.removeChild(tr)});
+    let tdbutton = document.createElement("td");
+    tdbutton.appendChild(removebutton);
+    tdspan.innerHTML = selected;
+    tdspan.value = selected;
+    tdspan.classList.add("extra-card");
+    td.appendChild(tdspan);
+    tr.appendChild(td);
+    tr.appendChild(tdbutton);
+
+    // add remove button
+    table.appendChild(tr);
+}
+
+function populateCards() {
+    let element = document.getElementById("select-cards-id");
+    let allcards = [].concat(corp_cards_array).concat(runner_cards_array);
+    allcards.sort();
+    for(var card of allcards) {
+	let option = document.createElement("option");
+	option.value=card;
+	option.innerHTML=card;
+	element.appendChild(option);
+    }
+}

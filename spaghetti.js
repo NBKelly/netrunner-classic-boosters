@@ -10,7 +10,7 @@ function addParam(link, param, val) {
     else
 	link = link + "&";
 
-    link = link + param + "=" + val;
+    link = link + param + "=" + encodeURIComponent(val);
     return link;
 }
 
@@ -29,12 +29,21 @@ function generateOnce() {
 
     var link = "result.html"
 
+    let extra_cards = [];
+    for (let el of document.getElementsByClassName('extra-card')) {
+	console.log(el.value);
+	extra_cards.push(el.value);
+    }
+
+    let json_str = JSON.stringify(extra_cards);
+
     // attributes - seed
     link = addParam(link, "seed", getRandomInt(1,10000));
     link = addParam(link, "starters", starters);
     link = addParam(link, "base_boosters", base_boosters);
     link = addParam(link, "proteus_boosters", proteus_boosters);
     link = addParam(link, "classic_boosters", classic_boosters);
+    link = addParam(link, "extra_cards", json_str);
     console.log(link);
 
     return link;

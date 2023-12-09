@@ -255,7 +255,10 @@ function assembleCards() {
     let base_boosters = urlParams.get('base_boosters');
     let proteus_boosters = urlParams.get('proteus_boosters');
     let classic_boosters = urlParams.get('classic_boosters');
+    let extra_cards = urlParams.get('extra_cards');
+    console.log(extra_cards);
 
+    generatedCards = generatedCards.concat(JSON.parse(extra_cards));
     // get all the boosters we need
     for(let i = 0; i < starters; i++) {
 	let x = base_set_starter(seeds[i]);
@@ -282,8 +285,9 @@ function assembleCards() {
 	let x = classic_booster(seeds[i]);
 	//console.log(x);
 	generatedCards = generatedCards.concat(x);
-
     }
+
+
 
     /* map all our cards by frequency */
     for (const card of generatedCards) {
