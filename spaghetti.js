@@ -36,9 +36,9 @@ function generateOnce() {
     }
 
     let json_str = JSON.stringify(extra_cards);
-
+    let seed = getRandomInt(1,10000);
     // attributes - seed
-    link = addParam(link, "seed", getRandomInt(1,10000));
+    link = addParam(link, "seed", seed);
     link = addParam(link, "starters", starters);
     link = addParam(link, "base_boosters", base_boosters);
     link = addParam(link, "proteus_boosters", proteus_boosters);
@@ -46,7 +46,7 @@ function generateOnce() {
     link = addParam(link, "extra_cards", json_str);
     console.log(link);
 
-    return link;
+    return [seed, link];
 }
 
 function generateCards() {
@@ -60,9 +60,11 @@ function generateCards() {
     var links = "";//[];
 
     for(let i = 0; i < players; i++) {
-	let link = generateOnce();
+	let _link = generateOnce();
+	let link = _link[1];
+	let seed = _link[0];
 
-	link = "<tr><td><a href=\"" + link + "\">Player " + (i + 1) + "<\a></td></tr>";
+	link = "<tr><td>Seed: " + seed + "</td><td><a href=\"" + link + "\">Player " + (i + 1) + "<\a></td></tr>";
 	links += link;
     }
 
