@@ -404,18 +404,22 @@ var corp_rare =
 	"Silver Lining Recovery Protocol"
 ]
 
-var vital = corp_vital.concat(runner_vital)
-var common = corp_common.concat(runner_common)
-var uncommon = corp_uncommon.concat(runner_uncommon)
-var rare = corp_rare.concat(runner_rare)
+var base_vital = corp_vital.concat(runner_vital)
+var base_common = corp_common.concat(runner_common)
+var base_uncommon = corp_uncommon.concat(runner_uncommon)
+var base_rare = corp_rare.concat(runner_rare)
 
-function mulberry32(a) {
-    return function() {
-      var t = a += 0x6D2B79F5;
-      t = Math.imul(t ^ t >>> 15, t | 1);
-      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
-    }
+function setSeed(seed) {
+    Math.seed = seed;
+}
+function seededRandom(max, min) {
+    max = max || 1;
+    min = min || 0;
+
+    Math.seed = (Math.seed * 9301 + 49297) % 233280;
+    var rnd = Math.seed / 233280;
+
+    return Math.floor(min + rnd * (max - min));
 }
 
 /*60 cards each side
@@ -423,25 +427,26 @@ function mulberry32(a) {
 function base_set_starter(seed) {
     let booster = [];
 
-    let rand = (mulberry32(seed));
+    setSeed(seed);
+
     for (let i = 0; i < 11; i++) {
-	booster.push(corp_vital[Math.floor(rand() * corp_vital.length)])
-	booster.push(runner_vital[Math.floor(rand() * runner_vital.length)])
+	booster.push(corp_vital[seededRandom(0, corp_vital.length)]);
+	booster.push(runner_vital[seededRandom(0, runner_vital.length)]);
     }
 
     for (let i = 0; i < 30; i++) {
-	booster.push(corp_common[Math.floor(rand() * corp_common.length)])
-	booster.push(runner_common[Math.floor(rand() * runner_common.length)])
+	booster.push(corp_common[seededRandom(0, corp_common.length)]);
+	booster.push(runner_common[seededRandom(0, runner_common.length)]);
     }
 
     for (let i = 0; i < 17; i++) {
-	booster.push(corp_uncommon[Math.floor(rand() * corp_uncommon.length)])
-	booster.push(runner_uncommon[Math.floor(rand() * runner_uncommon.length)])
+	booster.push(corp_uncommon[seededRandom(0, corp_uncommon.length)]);
+	booster.push(runner_uncommon[seededRandom(0, runner_uncommon.length)]);
     }
 
     for (let i = 0; i < 2; i++) {
-	booster.push(corp_rare[Math.floor(rand() * corp_rare.length)])
-	booster.push(runner_rare[Math.floor(rand() * runner_rare.length)])
+	booster.push(corp_rare[seededRandom(0, corp_rare.length)]);
+	booster.push(runner_rare[seededRandom(0, runner_rare.length)]);
     }
 
     return booster;
@@ -451,22 +456,22 @@ function base_set_starter(seed) {
 function base_set_booster(seed) {
     let booster = [];
 
-    // double seed this so the boosters and commons don't look alike
-    let rand = (mulberry32(seed));
-    rand = mulberry32(Math.floor(rand() *99999999));
+    setSeed(seed);
+    seededRandom(0, 1);
 
+    // double seed this so the boosters and commons don't look alike
     for (let i = 0; i < 2; i++)
-	booster.push(vital[Math.floor(rand() * vital.length)])
+	booster.push(base_vital[seededRandom(0, base_vital.length)])
     //booster.push(common[Math.floor(rand() * common.length)]);
 
     for (let i = 0; i < 7; i++)
-      booster.push(common[Math.floor(rand() * common.length)]);
+      booster.push(base_common[seededRandom(0, base_common.length)]);
 
     for (let i = 0; i < 5; i++)
-	booster.push(uncommon[Math.floor(rand() *  uncommon.length)]);
+	booster.push(base_uncommon[seededRandom(0, base_uncommon.length)]);
 
     for (let i = 0; i < 1; i++)
-	booster.push(rare[Math.floor(rand() *  rare.length)]);
+	booster.push(base_rare[seededRandom(0, base_rare.length)]);
 
     return booster;
 }

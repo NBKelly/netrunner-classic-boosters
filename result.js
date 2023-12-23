@@ -2,6 +2,24 @@ var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.3.min.js'; // Check https://jquery.com/ for the current version
 document.getElementsByTagName('head')[0].appendChild(script);
 
+// the initial seed
+Math.seed = 6;
+
+// in order to work 'Math.seed' must NOT be undefined,
+// so in any case, you HAVE to provide a Math.seed
+Math.setSeed = function(seed) {
+    Math.seed = seed;
+}
+Math.seededRandom = function(max, min) {
+    max = max || 1;
+    min = min || 0;
+
+    Math.seed = (Math.seed * 9301 + 49297) % 233280;
+    var rnd = Math.seed / 233280;
+
+    return min + rnd * (max - min);
+}
+
 function displayCorp() {
     document.getElementById("Corp").style.display = "block";
     document.getElementById("Runner").style.display = "none";
@@ -91,7 +109,7 @@ function populate_teki(zone) {
 		       'corp-deck-upgrade','corp-deck-operation',];
 	for(let zone_name of t_zones) {
 	    for (let [key, value] of zones[zone_name]) {
-		let jnet_str = value + " ONR " + key.replaceAll("(r)", " [R]").replaceAll("(tm)", " [TM]");
+		let jnet_str = value + " ONR " + fix_name(key.replaceAll("(r)", " [R]").replaceAll("(tm)", " [TM]"));
 		let sp = document.createElement("span");
 		sp.innerHTML = jnet_str;
 		element.appendChild(sp);
@@ -106,7 +124,7 @@ function populate_teki(zone) {
 		       'runner-deck-event','runner-deck-resource',];
 	for(let zone_name of t_zones) {
 	    for (let [key, value] of zones[zone_name]) {
-		let jnet_str = value + " ONR " + key.replaceAll("(r)", " [R]").replaceAll("(tm)", " [TM]");
+		let jnet_str = value + " ONR " + fix_name(key.replaceAll("(r)", " [R]").replaceAll("(tm)", " [TM]"));
 		let sp = document.createElement("span");
 		sp.innerHTML = jnet_str;
 		element.appendChild(sp);
@@ -115,14 +133,6 @@ function populate_teki(zone) {
 	}
     }
 }
-
-// 	let count = count_deck(zones['corp-deck-agenda'])
-// 	    + count_deck(zones['corp-deck-ice'])
-// 	    + count_deck(zones['corp-deck-operation'])
-// 	    + count_deck(zones['corp-deck-asset'])
-// 	    + count_deck(zones['corp-deck-upgrade']);
-//     }
-// }
 
 function create_list_element(text, qty, from, to) {
     var node = document.createElement("li");
@@ -248,7 +258,7 @@ function assembleCards() {
 
     let rand = (mulberry32(seed));
     let seeds = [];
-    for(let i = 0; i < 50; i++)
+    for(let i = 0; i < 500; i++)
 	seeds.push(Math.floor(rand()*9999999));
 
     let starters = urlParams.get('starters');

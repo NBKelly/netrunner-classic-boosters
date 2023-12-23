@@ -1204,6 +1204,22 @@ var is_corp_card = function(name) {
     return corp_cards_array.includes(name);
 }
 
+function fix_name(name) {
+    //Bodyweight Synthetic Blood
+    //Lucidrine Booster Drug
+    let to_fix = {"PI in the \'Face" : "π in the 'Face",
+		  "R&D Protocol File" : "R&D-Protocol Files",
+		  "Bodyweight Synthetic Blood" : "Bodyweight [TM] Synthetic Blood",
+		  "Lucidrine Booster Drug" : "Lucidrine [TM] Booster Drug"};
+
+    let res = to_fix[name];
+    if(res == null)
+	res = name;
+
+    return res;
+    //return name;
+}
+
 /* these probably shouldn't be here
    but what you finna do */
 function addcard() {

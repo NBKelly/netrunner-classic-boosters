@@ -1,4 +1,4 @@
-var common = [
+var prot_common = [
     "Charity Takeover",
     "Corporate Headhunters",
     "Marked Accounts",
@@ -67,7 +67,7 @@ var common = [
     "Weefle Initiation"
 ]
 
-var uncommon = [
+var prot_uncommon = [
     "Bug Zapper",
     "Caryatid",
     "Digiconda",
@@ -114,7 +114,7 @@ var uncommon = [
     "Subliminal Corruption"
 ]
 
-var rare = [
+var prot_rare = [
     "AI Board Member",
     "Fetal AI",
     "Please Don't Choke Anyone",
@@ -161,29 +161,33 @@ var rare = [
     "Test Spin"
 ]
 
-function mulberry32(a) {
-    return function() {
-      var t = a += 0x6D2B79F5;
-      t = Math.imul(t ^ t >>> 15, t | 1);
-      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
-    }
+function setSeed(seed) {
+    Math.seed = seed;
+}
+function seededRandom(max, min) {
+    max = max || 1;
+    min = min || 0;
+
+    Math.seed = (Math.seed * 9301 + 49297) % 233280;
+    var rnd = Math.seed / 233280;
+
+    return Math.floor(min + rnd * (max - min));
 }
 
 /* 10 common, 4 uncommon, 1 rare - side agnostic */
 function proteus_booster(seed) {
-    booster = [];
+    let booster = [];
 
-    let rand = (mulberry32(seed));
+    setSeed(seed);
 
     for (let i = 0; i < 10; i++)
-	booster.push(common[Math.floor(rand() * common.length)]);
+	booster.push(prot_common[seededRandom(0,  prot_common.length)]);
 
     for (let i = 0; i < 4; i++)
-	booster.push(uncommon[Math.floor(rand() *  uncommon.length)]);
+	booster.push(prot_uncommon[seededRandom(0, prot_uncommon.length)]);
 
     for (let i = 0; i < 1; i++)
-	booster.push(rare[Math.floor(rand() *  rare.length)]);
+	booster.push(prot_rare[seededRandom(0, prot_rare.length)]);
 
     return booster;
 }
